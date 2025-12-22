@@ -1,0 +1,334 @@
+/* ===== BUTTON HOVER ANIMATION (150ms) ===== */
+@keyframes buttonGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(57, 255, 20, 0.2);
+    }
+
+    50% {
+        box-shadow: var(--shadow-glow-md);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(57, 255, 20, 0.2);
+    }
+}
+
+.button-hover {
+    transition: all var(--transition-fast) var(--ease-out);
+}
+
+.button-hover:hover {
+    animation: buttonGlow 1.5s ease-in-out infinite;
+    transform: translateY(-2px);
+}
+
+/* ===== MENU SLIDE-IN ANIMATION (250ms) ===== */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft var(--transition-base) var(--ease-out);
+}
+
+.slide-in-right {
+    animation: slideInRight var(--transition-base) var(--ease-out);
+}
+
+/* ===== CHAT BUBBLE FADE-IN (200ms) ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 200ms var(--ease-out);
+}
+
+/* ===== MIC PULSE ANIMATION (1.2s loop) ===== */
+@keyframes micPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.7);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 20px rgba(57, 255, 20, 0);
+        transform: scale(1.05);
+    }
+}
+
+.mic-pulse {
+    animation: micPulse 1.2s ease-in-out infinite;
+}
+
+/* ===== NEON GLOW PULSE ===== */
+@keyframes neonGlowPulse {
+
+    0%,
+    100% {
+        box-shadow: var(--shadow-glow-sm);
+    }
+
+    50% {
+        box-shadow: var(--shadow-glow-lg);
+    }
+}
+
+.neon-pulse {
+    animation: neonGlowPulse 2s ease-in-out infinite;
+}
+
+/* ===== SKELETON LOADING ===== */
+@keyframes skeleton {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--color-bg-card) 0%,
+            var(--color-bg-tertiary) 50%,
+            var(--color-bg-card) 100%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+
+/* ===== PAGE TRANSITIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-enter {
+    animation: fadeInUp 0.4s var(--ease-out);
+}
+
+/* ===== QUIZ MCQ INTERACTIONS ===== */
+@keyframes correctPulse {
+    0% {
+        background-color: var(--color-bg-card);
+        border-color: transparent;
+    }
+
+    50% {
+        background-color: rgba(16, 185, 129, 0.2);
+        border-color: var(--color-success);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+
+    100% {
+        background-color: rgba(16, 185, 129, 0.1);
+        border-color: var(--color-success);
+    }
+}
+
+@keyframes wrongFlash {
+
+    0%,
+    100% {
+        background-color: var(--color-bg-card);
+        border-color: transparent;
+    }
+
+    25%,
+    75% {
+        background-color: rgba(239, 68, 68, 0.2);
+        border-color: var(--color-error);
+    }
+
+    50% {
+        background-color: rgba(239, 68, 68, 0.3);
+        border-color: var(--color-error);
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+    }
+}
+
+.quiz-correct {
+    animation: correctPulse 0.6s ease-out forwards;
+}
+
+.quiz-wrong {
+    animation: wrongFlash 0.6s ease-out;
+}
+
+/* ===== CARD HOVER EFFECT ===== */
+@keyframes cardHover {
+    from {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    to {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-glow-md);
+    }
+}
+
+.card-hover {
+    transition: all var(--transition-fast) var(--ease-out);
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow-md);
+}
+
+/* ===== SPINNER/LOADER ===== */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* ===== SCALE ON HOVER ===== */
+.scale-hover {
+    transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.scale-hover:hover {
+    transform: scale(1.05);
+}
+
+/* ===== GRADIENT ANIMATION ===== */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animated {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* ===== TYPING INDICATOR ===== */
+@keyframes typingDot {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+.typing-dot {
+    animation: typingDot 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* ===== BOUNCE ANIMATION ===== */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+/* ===== SHAKE ANIMATION ===== */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}

@@ -1,0 +1,169 @@
+:root {
+  /* ===== COLOR PALETTE ===== */
+  /* Dark Theme Base */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: #1a1a1a;
+  --color-bg-card: #151515;
+  --color-bg-hover: #1f1f1f;
+  
+  /* Neon Green Palette */
+  --color-primary: #39FF14;
+  --color-primary-dark: #2bd60f;
+  --color-primary-darker: #1fb80a;
+  --color-primary-light: #55ff3a;
+  --color-primary-lighter: #7aff66;
+  
+  /* Gradient Colors */
+  --color-gradient-start: #39FF14;
+  --color-gradient-mid: #7aff66;
+  --color-gradient-end: #10b981;
+  
+  /* Text Colors */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1A1;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #404040;
+  
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Pronunciation Feedback Colors */
+  --color-feedback-good: #10b981;
+  --color-feedback-intermediate: #f59e0b;
+  --color-feedback-wrong: #ef4444;
+  
+  /* ===== TYPOGRAPHY ===== */
+  /* Font Families */
+  --font-arabic: 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif;
+  --font-primary: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Font Sizes - Arabic */
+  --font-size-arabic-xs: 20px;
+  --font-size-arabic-sm: 24px;
+  --font-size-arabic-md: 28px;
+  --font-size-arabic-lg: 32px;
+  --font-size-arabic-xl: 40px;
+  --font-size-arabic-2xl: 48px;
+  
+  /* Font Sizes - English/UI */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+  --font-size-3xl: 36px;
+  --font-size-4xl: 48px;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+  
+  /* ===== SPACING ===== */
+  --spacing-0: 0;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Neon Glow Shadows */
+  --shadow-glow-sm: 0 0 10px rgba(57, 255, 20, 0.3);
+  --shadow-glow-md: 0 0 20px rgba(57, 255, 20, 0.4), 0 0 40px rgba(57, 255, 20, 0.2);
+  --shadow-glow-lg: 0 0 30px rgba(57, 255, 20, 0.5), 0 0 60px rgba(57, 255, 20, 0.3), 0 0 90px rgba(57, 255, 20, 0.1);
+  
+  /* ===== Z-INDEX SCALE ===== */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 150ms;
+  --transition-base: 250ms;
+  --transition-slow: 350ms;
+  
+  /* Easing Functions */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* ===== BREAKPOINTS (for JS) ===== */
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1280px;
+  
+  /* ===== LAYOUT ===== */
+  --container-max-width: 1280px;
+  --navbar-height: 64px;
+  --navbar-height-shrink: 56px;
+  
+  /* ===== GRADIENTS ===== */
+  --gradient-primary: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 50%, var(--color-gradient-end) 100%);
+  --gradient-radial: radial-gradient(circle, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+  --gradient-text: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+}
+
+/* Responsive Font Sizes for Arabic (Mobile) */
+@media (max-width: 640px) {
+  :root {
+    --font-size-arabic-xs: 18px;
+    --font-size-arabic-sm: 20px;
+    --font-size-arabic-md: 24px;
+    --font-size-arabic-lg: 28px;
+    --font-size-arabic-xl: 32px;
+    --font-size-arabic-2xl: 36px;
+  }
+}
+
+/* Responsive Font Sizes for Arabic (Tablet) */
+@media (min-width: 641px) and (max-width: 1023px) {
+  :root {
+    --font-size-arabic-xs: 20px;
+    --font-size-arabic-sm: 22px;
+    --font-size-arabic-md: 26px;
+    --font-size-arabic-lg: 30px;
+    --font-size-arabic-xl: 36px;
+    --font-size-arabic-2xl: 42px;
+  }
+}
