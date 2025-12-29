@@ -31,9 +31,61 @@ function Navbar() {
         <>
             <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
                 <div className={styles.container}>
-                    {/* Menu Icon */}
+                    {/* Logo - Left */}
+                    <Link to="/" className={styles.logo}>
+                        <span className={styles.logoIcon}>Q</span>
+                        <span className={styles.logoText}>QURANLEARNAI</span>
+                    </Link>
+
+                    {/* Centered Navigation Links */}
+                    <div className={`${styles.navLinks} mobile-hidden`}>
+                        <Link
+                            to="/"
+                            className={`${styles.navLink} ${location.pathname === '/' ? styles.active : ''}`}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            to="/read"
+                            className={`${styles.navLink} ${location.pathname === '/read' || location.pathname.startsWith('/surah') ? styles.active : ''}`}
+                        >
+                            Read Qur'an
+                        </Link>
+                        <Link
+                            to="/learn"
+                            className={`${styles.navLink} ${location.pathname.startsWith('/learn') ? styles.active : ''}`}
+                        >
+                            Learn Qur'an
+                        </Link>
+                        <Link
+                            to="/pronunciation"
+                            className={`${styles.navLink} ${location.pathname === '/pronunciation' ? styles.active : ''}`}
+                        >
+                            Pronunciation
+                        </Link>
+                        <Link
+                            to="/chatbot"
+                            className={`${styles.navLink} ${location.pathname === '/chatbot' ? styles.active : ''}`}
+                        >
+                            Chatbot
+                        </Link>
+                        <Link
+                            to="/about"
+                            className={`${styles.navLink} ${location.pathname === '/about' ? styles.active : ''}`}
+                        >
+                            About
+                        </Link>
+                        <Link
+                            to="/faq"
+                            className={`${styles.navLink} ${location.pathname === '/faq' ? styles.active : ''}`}
+                        >
+                            FAQ
+                        </Link>
+                    </div>
+
+                    {/* Mobile Menu Button Only */}
                     <button
-                        className={styles.menuButton}
+                        className={`${styles.menuButton} desktop-hidden`}
                         onClick={handleDrawerToggle}
                         aria-label="Toggle menu"
                     >
@@ -43,19 +95,6 @@ function Navbar() {
                             <span></span>
                         </div>
                     </button>
-
-                    {/* Logo */}
-                    <Link to="/" className={styles.logo}>
-                        <span className="gradient-text">QuranLearnAI</span>
-                    </Link>
-
-                    {/* Desktop Navigation */}
-                    <div className={`${styles.navLinks} mobile-hidden`}>
-                        <Link to="/read" className={styles.navLink}>Read</Link>
-                        <Link to="/learn" className={styles.navLink}>Learn</Link>
-                        <Link to="/pronunciation" className={styles.navLink}>Pronunciation</Link>
-                        <Link to="/chatbot" className={styles.navLink}>Chatbot</Link>
-                    </div>
                 </div>
             </nav>
 

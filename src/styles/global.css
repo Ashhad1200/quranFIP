@@ -25,6 +25,24 @@ body {
     background-color: var(--color-bg-primary);
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative;
+}
+
+/* Blurred Background Layer (Frame 14 with 38px blur) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/page-bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -523,4 +541,109 @@ button:disabled {
     .desktop-hidden {
         display: none !important;
     }
+}
+
+/* ===== GLASSMORPHISM (Figma Design) ===== */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-strong));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+    border: 1px solid var(--glass-border);
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+
+    .glass,
+    .glass-strong {
+        background: var(--color-bg-card-solid);
+    }
+}
+
+/* ===== DECORATIVE ELEMENTS (Figma Design) ===== */
+/* Background Number for Feature Cards */
+.bg-number {
+    position: relative;
+}
+
+.bg-number::before {
+    content: attr(data-number);
+    position: absolute;
+    font-size: 140px;
+    font-weight: 700;
+    color: rgba(191, 255, 0, 0.05);
+    top: -30px;
+    right: 20px;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-number>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* Pill-Shaped Button Utility */
+.pill {
+    border-radius: var(--radius-full);
+}
+
+/* Enhanced Card Hover (Figma Style) */
+.card-hover {
+    transition: all var(--transition-base) var(--ease-out);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-glow-md);
+    border-color: var(--color-primary);
+}
+
+/* Mosque Silhouette Background */
+.page-with-mosque {
+    position: relative;
+}
+
+.page-with-mosque::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: url('/assets/mosque-silhouette.svg') no-repeat center;
+    background-size: contain;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Text Shadow for Better Readability on Teal-Black */
+.text-enhanced {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Neon Border Glow */
+.border-neon {
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 10px rgba(191, 255, 0, 0.3);
+}
+
+.border-neon-subtle {
+    border: 1px solid rgba(191, 255, 0, 0.2);
+}
+
+/* Black Text on Neon Background (Figma Buttons) */
+.text-on-neon {
+    color: #000000;
+    font-weight: var(--font-weight-semibold);
 }

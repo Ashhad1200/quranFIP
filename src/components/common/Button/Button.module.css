@@ -4,11 +4,14 @@
     justify-content: center;
     gap: var(--spacing-2);
     font-family: var(--font-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
+    /* Increased from medium */
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
+    /* Pill-shaped (Figma Design) */
     cursor: pointer;
-    transition: all var(--transition-fast) var(--ease-out);
+    transition: all 0.3s var(--ease-out);
+    /* Smoother transition */
     position: relative;
     text-decoration: none;
     user-select: none;
@@ -22,14 +25,18 @@
 /* Variants */
 .primary {
     background: var(--color-primary);
-    color: var(--color-bg-primary);
-    border: 2px solid var(--color-primary);
+    /* Neon Lime */
+    color: #000000;
+    /* Black text on neon (Figma Design) */
+    border: none;
 }
 
 .primary:hover:not(.disabled) {
     background: var(--color-primary-light);
-    border-color: var(--color-primary-light);
-    box-shadow: var(--shadow-glow-md);
+    box-shadow: var(--shadow-glow-lg);
+    /* Enhanced glow */
+    transform: translateY(-2px);
+    /* Lift effect */
 }
 
 .secondary {
@@ -39,8 +46,10 @@
 }
 
 .secondary:hover:not(.disabled) {
-    background: rgba(57, 255, 20, 0.1);
+    background: rgba(191, 255, 0, 0.1);
+    /* Updated for neon lime */
     box-shadow: var(--shadow-glow-sm);
+    transform: translateY(-2px);
 }
 
 .ghost {
