@@ -1,0 +1,295 @@
+/* ===== TAILWIND CSS ===== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== BASE LAYER (Reset & Defaults) ===== */
+@layer base {
+    html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        @apply m-0 p-0 font-primary text-base font-normal leading-normal text-text-primary bg-dark-primary overflow-x-hidden min-h-screen relative;
+    }
+
+    /* Blurred Background Layer */
+    body::before {
+        content: '';
+        @apply fixed top-0 left-0 w-full h-full -z-10 pointer-events-none;
+        background-image: url('/assets/page-bg.png');
+        background-size: cover;
+        background-position: center;
+        filter: blur(20px);
+        -webkit-filter: blur(20px);
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply m-0 font-semibold text-text-primary;
+        line-height: 1.25;
+    }
+
+    h1 {
+        @apply text-5xl;
+    }
+
+    h2 {
+        @apply text-4xl;
+    }
+
+    h3 {
+        @apply text-3xl;
+    }
+
+    h4 {
+        @apply text-2xl;
+    }
+
+    h5 {
+        @apply text-xl;
+    }
+
+    h6 {
+        @apply text-lg;
+    }
+
+    p {
+        @apply m-0 text-text-secondary;
+    }
+
+    a {
+        @apply text-lime-neon no-underline transition-colors duration-fast;
+    }
+
+    a:hover {
+        @apply text-lime-light;
+    }
+
+    ul,
+    ol {
+        @apply list-none;
+    }
+
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        @apply block max-w-full h-auto;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+        @apply border-none outline-none bg-transparent;
+        font: inherit;
+        color: inherit;
+    }
+
+    button {
+        @apply cursor-pointer select-none;
+    }
+
+    button:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+
+    ::selection {
+        @apply bg-lime-neon text-dark-primary;
+    }
+
+    ::-moz-selection {
+        @apply bg-lime-neon text-dark-primary;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        @apply w-2 h-2;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-dark-secondary;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-dark-tertiary rounded-full;
+        transition: background 150ms;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-lime-neon;
+    }
+
+    /* Focus States */
+    *:focus-visible {
+        @apply outline-2 outline-lime-neon outline-offset-2 rounded-sm;
+        outline-style: solid;
+    }
+}
+
+/* ===== COMPONENTS LAYER ===== */
+@layer components {
+
+    /* Arabic Text */
+    .arabic-text {
+        @apply font-arabic text-arabic-lg text-text-primary font-normal;
+        line-height: 2;
+        text-align: right;
+        direction: rtl;
+    }
+
+    /* Container */
+    .container {
+        @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    /* Glassmorphism */
+    .glass {
+        @apply bg-glass-bg backdrop-blur-[10px] border border-glass-border;
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .glass-strong {
+        @apply bg-glass-bg-strong backdrop-blur-[20px] border border-glass-border;
+        -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+        @apply bg-gradient-to-r from-lime-neon to-lime-light bg-clip-text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Neon Glow Effect */
+    .neon-glow {
+        @apply shadow-glow-md transition-shadow duration-fast;
+    }
+
+    .neon-glow:hover {
+        @apply shadow-glow-lg;
+    }
+
+    /* Card Hover */
+    .card-hover {
+        @apply transition-all duration-base ease-out;
+    }
+
+    .card-hover:hover {
+        @apply -translate-y-2 shadow-glow-md border-lime-neon;
+    }
+
+    /* Neon Border */
+    .border-neon {
+        @apply border-2 border-lime-neon shadow-glow-sm;
+    }
+
+    .border-neon-subtle {
+        border: 1px solid rgba(191, 255, 0, 0.2);
+    }
+
+    /* Background Number (Feature Cards) */
+    .bg-number {
+        @apply relative;
+    }
+
+    .bg-number::before {
+        content: attr(data-number);
+        @apply absolute pointer-events-none;
+        font-size: 140px;
+        font-weight: 700;
+        color: rgba(191, 255, 0, 0.05);
+        top: -30px;
+        right: 20px;
+        line-height: 1;
+        z-index: 0;
+    }
+
+    .bg-number>* {
+        @apply relative z-10;
+    }
+
+    /* Pill Shape */
+    .pill {
+        @apply rounded-full;
+    }
+
+    /* Text on Neon Background */
+    .text-on-neon {
+        @apply text-black font-semibold;
+    }
+
+    /* Mosque Silhouette Background */
+    .page-with-mosque {
+        @apply relative;
+    }
+
+    .page-with-mosque::before {
+        content: '';
+        @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none opacity-[0.03];
+        background: url('/assets/mosque-silhouette.svg') no-repeat center;
+        background-size: contain;
+        z-index: 0;
+    }
+
+    /* Text Enhanced (Better Readability) */
+    .text-enhanced {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ===== UTILITIES LAYER ===== */
+@layer utilities {
+
+    /* Animation Delays for Typing Indicator */
+    .animation-delay-200 {
+        animation-delay: 0.2s;
+    }
+
+    .animation-delay-400 {
+        animation-delay: 0.4s;
+    }
+
+    /* Skeleton Loading */
+    .skeleton {
+        @apply rounded-md;
+        background: linear-gradient(90deg,
+                rgba(10, 15, 13, 0.7) 0%,
+                #121817 50%,
+                rgba(10, 15, 13, 0.7) 100%);
+        background-size: 200% 100%;
+        animation: skeleton 1.5s ease-in-out infinite;
+    }
+}
+
+/* ===== RESPONSIVE ARABIC FONT SIZES ===== */
+@media (max-width: 640px) {
+    .arabic-text {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    .arabic-text {
+        font-size: 28px;
+    }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+
+    .glass,
+    .glass-strong {
+        @apply bg-dark-card-solid;
+    }
+}
