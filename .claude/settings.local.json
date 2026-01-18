@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b)",
+      "Bash(docker-compose up:*)",
+      "Bash(dir:*)",
+      "Bash(docker:*)",
+      "Bash(timeout:*)",
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"if \\($env:OPENAI_API_KEY\\) { $env:OPENAI_API_KEY.Substring\\(0,10\\) + ''...'' } else { ''NOT SET'' }\")",
+      "Bash(powershell -Command \"$k = [Environment]::GetEnvironmentVariable\\(''OPENAI_API_KEY'', ''User''\\); if \\($k\\) { Write-Host $k.Substring\\(0, [Math]::Min\\(10, $k.Length\\)\\) } else { Write-Host ''NOT_SET'' }\")",
+      "Bash(set OPENAI_API_KEY)",
+      "Bash(pip show:*)",
+      "Bash(findstr:*)",
+      "Bash(pip install:*)",
+      "Bash(python -m indexing.index_ayahs:*)",
+      "Bash(set EMBED_DEVICE=cpu)",
+      "Bash(python run_indexing.py:*)",
+      "Bash(python run_local_indexing.py:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

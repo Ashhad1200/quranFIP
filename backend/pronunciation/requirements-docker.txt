@@ -1,0 +1,11 @@
+# Core FastAPI dependencies
+fastapi>=0.110.0
+uvicorn>=0.22.0
+python-multipart>=0.0.6
+
+# Audio processing
+numpy>=1.24.0
+scipy>=1.11.0
+
+# Optional: librosa for better DTW (fallback to scipy if not available)
+librosa>=0.10.0

@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   startRecording as startRecordingAction,
   stopRecording as stopRecordingAction,
-  submitRecording,
+  evaluateWordPronunciation,
+  evaluateAyahPronunciation,
   clearFeedback,
   selectIsRecording,
-  selectFeedback
+  selectIsEvaluating,
+  selectFeedback,
+  selectPronunciationError
 } from '@store/slices/pronunciationSlice'
 import { setCurrentPage } from '@store/slices/uiSlice'
 import useAudioRecorder from '@hooks/useAudioRecorder'
@@ -20,7 +23,9 @@ function Pronunciation() {
   const dispatch = useDispatch()
 
   const isRecordingStore = useSelector(selectIsRecording)
+  const isEvaluating = useSelector(selectIsEvaluating)
   const feedback = useSelector(selectFeedback)
+  const apiError = useSelector(selectPronunciationError)
 
   const {
     isRecording: isRecordingLocal,
@@ -62,11 +67,20 @@ function Pronunciation() {
   const handleSubmit = async () => {
     if (!audioBlob) return
 
-    // Submit to backend ASR (currently using mock)
-    const wordId = id || '1'
-    await dispatch(submitRecording({ audioBlob, wordId }))
+    // Determine the type of evaluation based on route params
+    const evaluationType = type || 'word'
 
-    // Clear the recording
+    if (evaluationType === 'word') {
+      // For word evaluation, wordId format should be "surah:ayah:word" (e.g., "112:1:1")
+      const wordId = id || '112:1:1'
+      await dispatch(evaluateWordPronunciation({ audioBlob, wordId }))
+    } else if (evaluationType === 'ayah') {
+      // For ayah evaluation, ayahId format should be "surah:ayah" (e.g., "112:1")
+      const ayahId = id || '112:1'
+      await dispatch(evaluateAyahPronunciation({ audioBlob, ayahId }))
+    }
+
+    // Clear the recording after submission
     clearRecording()
   }
 
@@ -74,6 +88,8 @@ function Pronunciation() {
     dispatch(clearFeedback())
     clearRecording()
   }
+
+  const displayError = recordError || apiError
 
   return (
     <div className="min-h-screen py-24">
@@ -108,11 +124,17 @@ function Pronunciation() {
                 isRecording={isRecordingLocal}
                 onStart={handleStartRecording}
                 onStop={handleStopRecording}
+                disabled={isEvaluating}
               />
             </div>
 
             <div className="space-y-3">
-              {isRecordingLocal ? (
+              {isEvaluating ? (
+                <div className="flex items-center justify-center gap-2 text-lime-neon">
+                  <span className="w-3 h-3 bg-lime-neon rounded-full animate-pulse" />
+                  Evaluating your pronunciation...
+                </div>
+              ) : isRecordingLocal ? (
                 <>
                   <div className="flex items-center justify-center gap-2 text-error">
                     <span className="w-3 h-3 bg-error rounded-full animate-pulse" />
@@ -125,14 +147,14 @@ function Pronunciation() {
               ) : audioBlob ? (
                 <>
                   <div className="text-success font-medium">
-                    ✓ Recording complete!
+                    Recording complete!
                   </div>
                   <div className="flex gap-4 justify-center">
-                    <Button variant="secondary" onClick={handleTryAgain}>
-                      🔄 Record Again
+                    <Button variant="secondary" onClick={handleTryAgain} disabled={isEvaluating}>
+                      Record Again
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
-                      ✓ Submit for Feedback
+                    <Button variant="primary" onClick={handleSubmit} disabled={isEvaluating}>
+                      {isEvaluating ? 'Evaluating...' : 'Submit for Feedback'}
                     </Button>
                   </div>
                 </>
@@ -142,15 +164,15 @@ function Pronunciation() {
                     Tap the microphone to start recording
                   </p>
                   <p className="text-sm text-text-tertiary">
-                    💡 Listen to how the word should sound, then record yourself
+                    Listen to how the word should sound, then record yourself
                   </p>
                 </>
               )}
             </div>
 
-            {recordError && (
+            {displayError && (
               <div className="mt-4 p-4 bg-error/10 border border-error/30 rounded-lg text-error">
-                ⚠️ {recordError}
+                {displayError}
               </div>
             )}
           </div>
@@ -163,10 +185,10 @@ function Pronunciation() {
 
             <div className="flex gap-4 justify-center">
               <Button variant="secondary" size="large" onClick={handleTryAgain}>
-                🔄 Try Again
+                Try Again
               </Button>
               <Button variant="primary" size="large" onClick={() => window.history.back()}>
-                ✓ Continue Learning
+                Continue Learning
               </Button>
             </div>
           </div>
@@ -178,10 +200,10 @@ function Pronunciation() {
           <div>
             <h3 className="text-lg font-bold text-text-primary mb-3">Tajweed Tips</h3>
             <ul className="space-y-2 text-sm text-text-secondary">
-              <li>• Focus on proper Makhraj (articulation points)</li>
-              <li>• Pay attention to vowel lengths (short vs long)</li>
-              <li>• Practice Ghunnah for nasal sounds</li>
-              <li>• Maintain correct pronunciation of heavy/light letters</li>
+              <li>Focus on proper Makhraj (articulation points)</li>
+              <li>Pay attention to vowel lengths (short vs long)</li>
+              <li>Practice Ghunnah for nasal sounds</li>
+              <li>Maintain correct pronunciation of heavy/light letters</li>
             </ul>
           </div>
         </div>
@@ -189,7 +211,7 @@ function Pronunciation() {
         {/* FYP-2 Notice */}
         <div className="max-w-2xl mx-auto p-4 bg-warning/10 border border-warning/30 rounded-lg text-center">
           <p className="text-sm text-text-secondary">
-            📝 <strong className="text-warning">Note:</strong> Ayah-level pronunciation practice will be available in FYP-2.
+            <strong className="text-warning">Note:</strong> Ayah-level pronunciation practice will be available in FYP-2.
             Currently practicing word-level pronunciation with backend ASR integration.
           </p>
         </div>

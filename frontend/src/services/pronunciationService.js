@@ -1,62 +1,125 @@
-import { apiRequest, USE_MOCK_DATA } from './api'
+import { apiPronunciation } from './api'
 
-// Submit word pronunciation recording
+// Submit word pronunciation recording - Always uses real backend
 export const submitWordRecording = async (audioBlob, wordId) => {
-    if (USE_MOCK_DATA) {
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        // Mock feedback - randomize for demo
-        const scores = [65, 75, 85, 90, 95]
-        const score = scores[Math.floor(Math.random() * scores.length)]
-
-        let level = 'good'
-        if (score < 70) level = 'wrong'
-        else if (score < 85) level = 'intermediate'
-
-        return {
-            score,
-            level,
-            feedback: level === 'good'
-                ? 'Excellent pronunciation! Mashallah!'
-                : level === 'intermediate'
-                    ? 'Good attempt! Keep practicing.'
-                    : 'Try again. Focus on the Tajweed rules.'
-        }
-    }
+    // Parse wordId format: "surah:ayah:word" (e.g., "112:1:1")
+    const [surah, ayah, word] = String(wordId).split(':').map(Number)
 
     const formData = new FormData()
-    formData.append('audio', audioBlob)
-    formData.append('wordId', wordId)
+    formData.append('audio', audioBlob, 'recording.wav')
+    formData.append('surah', surah)
+    formData.append('ayah', ayah)
+    formData.append('word', word)
 
-    return apiRequest('/pronunciation/word', {
-        method: 'POST',
-        body: formData,
-        headers: {} // Let browser set Content-Type for FormData
-    })
+    try {
+        const response = await apiPronunciation.post('/evaluate/word', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+
+        // Map backend response to frontend expected format
+        const data = response.data
+        return {
+            score: data.score_percent,
+            level: data.label,
+            feedback: data.label === 'good'
+                ? 'Excellent pronunciation! Mashallah!'
+                : data.label === 'intermediate'
+                    ? 'Good attempt! Keep practicing.'
+                    : 'Try again. Focus on the Tajweed rules.',
+            details: {
+                dtwDistance: data.dtw_distance,
+                avgCost: data.avg_cost,
+                color: data.color
+            }
+        }
+    } catch (error) {
+        console.error('Pronunciation API Error:', error)
+        throw new Error(`Pronunciation evaluation failed: ${error.message}. Make sure the backend is running.`)
+    }
 }
 
-// Submit ayah pronunciation recording (FYP-2)
+// Submit ayah pronunciation recording - Always uses real backend
 export const submitAyahRecording = async (audioBlob, ayahId) => {
-    if (USE_MOCK_DATA) {
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        return {
-            score: 80,
-            level: 'good',
-            feedback: 'Well done! Your ayah recitation is improving.'
-        }
-    }
+    // Parse ayahId format: "surah:ayah" (e.g., "112:1")
+    const [surah, ayah] = String(ayahId).split(':').map(Number)
 
     const formData = new FormData()
-    formData.append('audio', audioBlob)
-    formData.append('ayahId', ayahId)
+    formData.append('audio', audioBlob, 'recording.wav')
+    formData.append('surah', surah)
+    formData.append('ayah', ayah)
 
-    return apiRequest('/pronunciation/ayah', {
-        method: 'POST',
-        body: formData,
-        headers: {}
-    })
+    try {
+        const response = await apiPronunciation.post('/evaluate/ayah', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+
+        const data = response.data
+        return {
+            score: data.score_percent,
+            level: data.label,
+            feedback: data.label === 'good'
+                ? 'Excellent recitation! Mashallah!'
+                : data.label === 'intermediate'
+                    ? 'Good attempt! Keep practicing the ayah.'
+                    : 'Try again. Focus on the pronunciation.',
+            details: {
+                dtwDistance: data.dtw_distance,
+                avgCost: data.avg_cost,
+                color: data.color
+            }
+        }
+    } catch (error) {
+        console.error('Pronunciation API Error:', error)
+        throw new Error(`Ayah evaluation failed: ${error.message}. Make sure the backend is running.`)
+    }
+}
+
+// Submit surah pronunciation recording - Always uses real backend
+export const submitSurahRecording = async (audioBlob, surahId) => {
+    const formData = new FormData()
+    formData.append('audio', audioBlob, 'recording.wav')
+    formData.append('surah', Number(surahId))
+
+    try {
+        const response = await apiPronunciation.post('/evaluate/surah', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+
+        const data = response.data
+        return {
+            score: data.score_percent,
+            level: data.label,
+            feedback: data.label === 'good'
+                ? 'Excellent surah recitation! Mashallah!'
+                : data.label === 'intermediate'
+                    ? 'Good attempt! Keep practicing.'
+                    : 'Try again. Focus on your recitation.',
+            details: {
+                dtwDistance: data.dtw_distance,
+                avgCost: data.avg_cost,
+                color: data.color
+            }
+        }
+    } catch (error) {
+        console.error('Pronunciation API Error:', error)
+        throw new Error(`Surah evaluation failed: ${error.message}. Make sure the backend is running.`)
+    }
+}
+
+// Check pronunciation service health
+export const checkHealth = async () => {
+    try {
+        const response = await apiPronunciation.get('/health')
+        return response.data
+    } catch (error) {
+        console.error('Pronunciation Health Check Error:', error)
+        return { status: 'error', error: error.message }
+    }
 }
 
 export default {
     submitWordRecording,
-    submitAyahRecording
+    submitAyahRecording,
+    submitSurahRecording,
+    checkHealth
 }
